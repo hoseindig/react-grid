@@ -9,8 +9,8 @@ class MyTable extends React.Component {
         <table className="table">
           <thead>
             <tr>
-              {theads.map((head) => {
-                return <th key={head} className="tHead" onClick={() => onSort(head)}>{head}</th>;
+              {theads.map((header) => {
+                return <th key={header} className="tHead" onClick={() => onSort(header)}>{header}</th>;
               })}
               <th></th>
             </tr>
