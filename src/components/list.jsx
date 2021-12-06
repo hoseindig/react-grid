@@ -58,6 +58,7 @@ class List extends React.Component {
           handelDelete={handelDelete}
           theads={theads}
           onSort={this.onSort}
+          sortColumn={sortColumn}
         />
         <Pagination
           handlePageChange={handlePageChange}

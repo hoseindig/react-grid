@@ -30,12 +30,12 @@ class MyTable extends React.Component {
   ];
 
   render() {
-    const { handelLike, handelDelete,  onSort, pagedList } = this.props;
+    const { handelLike, handelDelete, onSort, pagedList,sortColumn } = this.props;
 
     return (
       <React.Fragment>
         <table className="table">
-          <TableHeader columns={this.columns} onSort={onSort} />
+          <TableHeader sortColumn={sortColumn} columns={this.columns} onSort={onSort} />
           <TableBody
             columns={this.columns}
             handelLike={handelLike}
