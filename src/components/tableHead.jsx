@@ -1,26 +1,29 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 class TableHead extends React.Component {
-    render() { 
-        const { handelLike, handelDelete, theads, onSort, pagedList } = this.props;
-        return <React.Fragment>
-            <thead>
-            <tr>
-              {theads.map((header) => {
-                return (
-                  <th
-                    key={header}
-                    className="tHead"
-                    onClick={() => onSort(header)}
-                  >
-                    {header}
-                  </th>
-                );
-              })}
-              <th></th>
-            </tr>
-          </thead>
-        </React.Fragment>;
-    }
+  render() {
+    const { handelLike, handelDelete, theads, onSort, pagedList, columns } =
+      this.props;
+    return (
+      <React.Fragment>
+        <thead>
+          <tr>
+            {columns.map((column) => {
+              return (
+                <th
+                  key={column.path ? column.path : column.key}
+                  className="tHead"
+                  onClick={() => onSort(column.path)}
+                >
+                  {column.label}
+                </th>
+              );
+            })}
+            <th></th>
+          </tr>
+        </thead>
+      </React.Fragment>
+    );
+  }
 }
- 
+
 export default TableHead;

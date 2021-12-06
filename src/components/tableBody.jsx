@@ -1,9 +1,16 @@
 import React, { Component } from "react";
 import Like from "./like";
+import _ from "lodash";
 
 class tableBody extends React.Component {
+  renderCell = (item, column) => {
+    //   debugger
+    if (column.content) return column.content(item);
+    return _.get(item, column.path);
+  };
   render() {
-    const { handelLike, handelDelete, theads, onSort, pagedList } = this.props;
+    const { handelLike, handelDelete, theads, onSort, pagedList, columns } =
+      this.props;
 
     return (
       <React.Fragment>
@@ -11,7 +18,12 @@ class tableBody extends React.Component {
           {pagedList.map((item) => {
             return (
               <tr key={item._id}>
-                <td>{item.title}</td>
+                {columns.map((column) => (
+                  <td key={column.path ? column.path : column.key}>
+                    {this.renderCell(item, column)}
+                  </td>
+                ))}
+                {/* <td>{item.title}</td>
                 <td>{item.genre.name}</td>
                 <td>{item.numberInStock}</td>
                 <td>{item.dailyRentalRate}</td>
@@ -25,7 +37,7 @@ class tableBody extends React.Component {
                   >
                     Delete
                   </button>
-                </td>
+                </td> */}
               </tr>
             );
           })}
