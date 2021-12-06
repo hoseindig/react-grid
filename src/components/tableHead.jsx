@@ -1,8 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 class TableHead extends React.Component {
   render() {
-    const { handelLike, handelDelete, theads, onSort, pagedList, columns } =
-      this.props;
+    const { onSort, columns } = this.props;
     return (
       <React.Fragment>
         <thead>

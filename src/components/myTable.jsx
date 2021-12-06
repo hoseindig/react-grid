@@ -30,7 +30,7 @@ class MyTable extends React.Component {
   ];
 
   render() {
-    const { handelLike, handelDelete, theads, onSort, pagedList } = this.props;
+    const { handelLike, handelDelete,  onSort, pagedList } = this.props;
 
     return (
       <React.Fragment>

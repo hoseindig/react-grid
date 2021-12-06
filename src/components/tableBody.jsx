@@ -1,15 +1,13 @@
-import React, { Component } from "react";
-import Like from "./like";
+import React from "react";
 import _ from "lodash";
 
 class tableBody extends React.Component {
   renderCell = (item, column) => {
-    //   debugger
     if (column.content) return column.content(item);
     return _.get(item, column.path);
   };
   render() {
-    const { handelLike, handelDelete, theads, onSort, pagedList, columns } =
+    const {  pagedList, columns } =
       this.props;
 
     return (
