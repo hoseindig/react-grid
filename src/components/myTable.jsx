@@ -1,8 +1,9 @@
 import React from "react";
-import TableBody from "./tableBody";
-import TableHeader from "./tableHead";
+// import TableBody from "./table/tableBody";
+// import TableHeader from "./table/tableHead";
 
-import Like from "./like";
+import Like from "./table/like";
+import Grid from "./table/grid";
 
 class MyTable extends React.Component {
   columns = [
@@ -30,11 +31,20 @@ class MyTable extends React.Component {
   ];
 
   render() {
-    const { handelLike, handelDelete, onSort, pagedList,sortColumn } = this.props;
+    const { handelLike, handelDelete, onSort, pagedList, sortColumn } =
+      this.props;
 
     return (
       <React.Fragment>
-        <table className="table">
+        <Grid
+          sortColumn={sortColumn}
+          columns={this.columns}
+          onSort={onSort}
+          pagedList={pagedList}
+          handelLike={handelLike}
+          handelDelete={handelDelete}
+        />
+        {/* <table className="table">
           <TableHeader sortColumn={sortColumn} columns={this.columns} onSort={onSort} />
           <TableBody
             columns={this.columns}
@@ -42,7 +52,7 @@ class MyTable extends React.Component {
             handelDelete={handelDelete}
             pagedList={pagedList}
           />
-        </table>
+        </table> */}
       </React.Fragment>
     );
   }

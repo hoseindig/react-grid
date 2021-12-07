@@ -1,5 +1,5 @@
 import React from "react";
-import Pagination from "./pagination";
+import Pagination from "./table/pagination";
 import { paginate } from "../utils/paginate";
 import MyTable from "./myTable";
 import _ from "lodash";
@@ -25,12 +25,23 @@ class List extends React.Component {
     const sortColumn = { ...this.state.sortColumn };
     if (sortColumn.path === path)
       sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
-      else{
-        sortColumn.path=path
-        sortColumn.order="asc"
-      }
-    this.setState({ sortColumn});
+    else {
+      sortColumn.path = path;
+      sortColumn.order = "asc";
+    }
+    this.setState({ sortColumn });
   };
+
+  getListDataAndSort=(listItems,sortColumn,activePage,pageSize)=>{
+    const sorted = _.orderBy(listItems, [sortColumn.path], [sortColumn.order]);
+    console.log(
+      "%crender - sorted :",
+      "background:green",
+      sortColumn.path,
+      sorted
+    );
+    return paginate(sorted, activePage, pageSize);
+  }
 
   render() {
     const {
@@ -41,15 +52,9 @@ class List extends React.Component {
       activePage,
       theads,
     } = this.props;
-    const { sortColumn } = this.state;
-    const sorted = _.orderBy(listItems, [sortColumn.path], [sortColumn.order]);
-    console.log(
-      "%crender - sorted :",
-      "background:green",
-      sortColumn.path,
-      sorted
-    );
-    const pagedList = paginate(sorted, activePage, this.state.pageSize);
+    const { sortColumn,pageSize } = this.state;
+    const pagedList = this.getListDataAndSort(listItems,sortColumn,activePage,pageSize)
+    
     return (
       <div>
         <MyTable
