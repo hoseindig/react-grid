@@ -21,18 +21,21 @@ class List extends React.Component {
   }
 
   onSort = (path) => {
-    path = path.toLowerCase();
-    const sortColumn = { ...this.state.sortColumn };
-    if (sortColumn.path === path)
-      sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
-    else {
-      sortColumn.path = path;
-      sortColumn.order = "asc";
-    }
-    this.setState({ sortColumn });
+    if (path) {
+      path = path.toLowerCase();
+      const sortColumn = { ...this.state.sortColumn };
+      if (sortColumn.path === path)
+        sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
+      else {
+        sortColumn.path = path;
+        sortColumn.order = "asc";
+      }
+      this.setState({ sortColumn });
+    }else
+    console.log("onSort path","background:red");
   };
 
-  getListDataAndSort=(listItems,sortColumn,activePage,pageSize)=>{
+  getListDataAndSort = (listItems, sortColumn, activePage, pageSize) => {
     const sorted = _.orderBy(listItems, [sortColumn.path], [sortColumn.order]);
     console.log(
       "%crender - sorted :",
@@ -41,7 +44,7 @@ class List extends React.Component {
       sorted
     );
     return paginate(sorted, activePage, pageSize);
-  }
+  };
 
   render() {
     const {
@@ -52,9 +55,14 @@ class List extends React.Component {
       activePage,
       theads,
     } = this.props;
-    const { sortColumn,pageSize } = this.state;
-    const pagedList = this.getListDataAndSort(listItems,sortColumn,activePage,pageSize)
-    
+    const { sortColumn, pageSize } = this.state;
+    const pagedList = this.getListDataAndSort(
+      listItems,
+      sortColumn,
+      activePage,
+      pageSize
+    );
+
     return (
       <div>
         <MyTable
