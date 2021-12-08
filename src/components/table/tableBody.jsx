@@ -1,14 +1,12 @@
 import React from "react";
 import _ from "lodash";
-
 class tableBody extends React.Component {
   renderCell = (item, column) => {
     if (column.content) return column.content(item);
-    return _.get(item, column.path);
+    else return _.get(item, column.path);;
   };
   render() {
-    const {  pagedList, columns } =
-      this.props;
+    const { pagedList, columns } = this.props;
 
     return (
       <React.Fragment>
