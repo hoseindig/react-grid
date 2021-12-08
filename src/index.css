@@ -1,11 +1,26 @@
 body {
   margin: 0;
-  padding: 50px 0 0 0;
+  /* padding: 50px 0 0 0; */
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.navbar {
+  margin: 0 0 10px 0;
+  position: fixed;
+  z-index: 999999999999;
+  top: 0;
+  left: 0;
+}
+main{
+  /* margin: 50px 0; */
+}
+
+.selectedLink {
+  background-color: blue;
+  color: white !important;
 }
 
 code {
