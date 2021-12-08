@@ -4,10 +4,11 @@ import React from "react";
 
 import Like from "./table/like";
 import Grid from "./table/grid";
+import { Link } from "react-router-dom";
 
 class MyTable extends React.Component {
   columns = [
-    { path: "title", label: "Title" },
+    { path: "title", label: "Title" ,content:(item) => <Link to={'/movieInfo/'+item._id}>{item.title}</Link> },
     { path: "genre.name", label: "Genre" },
     { path: "numberInStock", label: "numberInStock" },
     { path: "dailyRentalRate", label: "Rate" },
