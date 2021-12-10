@@ -17,7 +17,12 @@ body {
 main{
   /* margin: 50px 0; */
 }
-
+.error{
+  color: red;
+  background-color: #e8f0fe;
+  padding: 10px;
+  border-radius: 10px;
+}
 .selectedLink {
   background-color: blue;
   color: white !important;
