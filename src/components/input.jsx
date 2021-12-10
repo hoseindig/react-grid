@@ -1,5 +1,8 @@
 import React from "react";
-const Input = ({ name, label, value, onChange, type }) => {
+function info(type) {
+  if (type === "email") return "We'll never share your email with anyone else.";
+}
+const Input = ({ name, label, value, onChange, type,error }) => {
   if (!type) type = "text";
   return (
     <div className="form-group">
@@ -14,8 +17,10 @@ const Input = ({ name, label, value, onChange, type }) => {
         aria-describedby="emailHelp"
         placeholder={"Enter " + label}
       />
+      {error && <div className="alert alert-danger">{error}</div>}
       <small id="emailHelp" className="form-text text-muted">
-        We'll never share your email with anyone else.
+        {info(type)}
+        {/* We'll never share your email with anyone else. */}
       </small>
     </div>
   );
