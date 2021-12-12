@@ -6,19 +6,21 @@ import Customers from "./components/customers";
 import MovieInfo from "./components/table/movieInfo";
 import NotFound from "./components/notFound";
 import NavBar from "./components/navBar";
-import LoginForm from './components/loginForm';
+import LoginForm from "./components/loginForm";
+import Register from "./components/register";
+import NewMovie from "./components/newMovie";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "font-awesome/css/font-awesome.css";
 
-
 function App() {
   return (
-    <React.Fragment> 
+    <React.Fragment>
       <NavBar />
       <main className="container">
         <Switch>
-          
+          <Route path="/movies/new" component={NewMovie} />
+          <Route path="/register" component={Register} />
           <Route path="/Login" component={LoginForm} />
           <Route path="/moveies" component={Moveis} />
           <Route path="/rentals" component={Rentals} />
@@ -28,7 +30,7 @@ function App() {
           <Route path="/notFound" component={NotFound}></Route>
 
           <Redirect from="/" exact to="/moveies" />
-          <Redirect  to="/notFound" />
+          <Redirect to="/notFound" />
         </Switch>
       </main>
     </React.Fragment>

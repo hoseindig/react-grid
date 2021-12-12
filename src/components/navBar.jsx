@@ -47,6 +47,13 @@ const NavBar = () => {
           >
             Login
           </NavLink>
+          <NavLink
+            activeClassName="selectedLink"
+            className="nav-item nav-link"
+            to="/register"
+          >
+            Register
+          </NavLink>
         </div>
       </div>
     </nav>

@@ -13,7 +13,28 @@ class Movies extends React.Component {
     filterd: getMovies(),
     activePage: 1,
     theads: ["Title", "Genre", "Stock", "Rate", "Like"],
+    passParams: {},
   };
+
+  componentDidMount() {
+    if (this.props.location.movie) {
+      // debugger;
+
+      const movie = this.props.location.movie;
+
+      let movies = this.state.movies;
+
+      let index = movies.findIndex((m) => m._id === movie._id);
+      //update
+      if (index !== -1) movies[index] = movie;
+      else movies.push(this.props.location.movie);
+
+      console.log("get movie", movie, index);
+
+      this.setState({ movies });
+    }
+  }
+
   handelDelete = (id) => {
     console.log("%chandelDelete : ", "background:red", id);
     let filterd = this.state.filterd.filter((m) => m._id !== id);

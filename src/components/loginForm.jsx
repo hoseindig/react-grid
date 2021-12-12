@@ -1,13 +1,13 @@
 import React from "react";
-import Input from "./input";
 import Joi from "joi-browser";
+import Form from "./form";
 
-class LoginForm extends React.Component {
+class LoginForm extends Form {
   username = React.createRef();
   password = React.createRef();
 
   state = {
-    account: {
+    data: {
       username: "",
       password: "",
     },
@@ -19,72 +19,19 @@ class LoginForm extends React.Component {
     password: Joi.string().required().label("کلمه عبور"),
   };
 
-  validateProperty = ({ name, value }) => {
-    const obj = { [name]: value };
-    const schema = { [name]: this.schema[name] };
-
-    let { error } = Joi.validate(obj, schema);
-    return !error ? null : error.details[0].message;
-  };
-
-  validate = () => {
-    const option = { abortEarly: false };
-    const result = Joi.validate(this.state.account, this.schema, option);
-
-    if (!result || !result.error) return null;
-    // debugger;
-    const errors = {}; //this.state.error
-    const { details } = result.error;
-
-    for (let item of details) errors[item.path[0]] = item.message;
-
-    console.log(errors);
-
-    return Object.keys(errors).length === 0 ? null : errors;
-  };
-
-  handleChange = ({ currentTarget: input }) => {
-    const account = { ...this.state.account };
-    account[input.name] = input.value;
-    this.setState({ account });
-    // debugger
-    const errors = { ...this.state.errors };
-    errors[input.name] = this.validateProperty(input);
-    this.setState({ errors: errors ? errors : {} });
-  };
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("handleSubmit");
-
-    // do more
-    const errors = this.validate();
-    this.setState({ errors: errors ? errors : {} });
-    console.log(errors);
-    if (errors) return;
+  doSubmit = () => {
+    // call server
+    console.log("doSubmit");
   };
 
   render() {
-    const { account, errors } = this.state;
+    // const { data, errors } = this.state;
     return (
       <div>
         <h1>Login</h1>
         <form onSubmit={this.handleSubmit}>
-          <Input
-            name="username"
-            label="UserName"
-            value={account.username}
-            onChange={this.handleChange}
-            error={errors.username}
-          />
-          <Input
-            name="password"
-            type="password"
-            label="Password"
-            value={account.password}
-            onChange={this.handleChange}
-            error={errors.password}
-          />
+          {this.renderInpurt("username", "UserName")}
+          {this.renderInpurt("password", "Password", "password")}
 
           <div className="form-check">
             <input
@@ -96,13 +43,7 @@ class LoginForm extends React.Component {
               Check me out
             </label>
           </div>
-          <button
-            disabled={this.validate()}
-            type="submit"
-            className="btn btn-primary"
-          >
-            Submit
-          </button>
+          {this.renderButton("login")}
         </form>
       </div>
     );

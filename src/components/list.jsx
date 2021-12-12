@@ -3,9 +3,12 @@ import Pagination from "./table/pagination";
 import { paginate } from "../utils/paginate";
 import MyTable from "./myTable";
 import _ from "lodash";
+import Input from "./input";
+import SearchBox from "./searchBox";
 
 class List extends React.Component {
   state = {
+    search: "",
     pageSize: 4,
     listItems: this.props.listItems,
     sortColumn: { path: this.props.theads[0].toLowerCase(), order: "asc" },
@@ -31,8 +34,14 @@ class List extends React.Component {
         sortColumn.order = "asc";
       }
       this.setState({ sortColumn });
-    }else
-    console.log("onSort path","background:red");
+    } else console.log("onSort path", "background:red");
+  };
+
+  handleSeacrh = ({ currentTarget: input }) => {
+    // debugger;
+    // let { search } = this.state;
+    // search = input.value;
+    this.setState({ search:input.value });
   };
 
   getListDataAndSort = (listItems, sortColumn, activePage, pageSize) => {
@@ -55,9 +64,13 @@ class List extends React.Component {
       activePage,
       theads,
     } = this.props;
-    const { sortColumn, pageSize } = this.state;
+    const { sortColumn, pageSize, search } = this.state;
+    let finditems = listItems.filter((i) =>
+      i.title.toLowerCase().includes(search.toLowerCase())
+    );
+    // debugger;
     const pagedList = this.getListDataAndSort(
-      listItems,
+      finditems,
       sortColumn,
       activePage,
       pageSize
@@ -65,6 +78,14 @@ class List extends React.Component {
 
     return (
       <div>
+        <SearchBox
+          name="search"
+          label="search"
+          value={search}
+          onChange={this.handleSeacrh}
+          numberResult={finditems.length}
+        />
+
         <MyTable
           pagedList={pagedList}
           handelLike={handelLike}

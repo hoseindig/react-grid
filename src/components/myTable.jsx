@@ -8,7 +8,15 @@ import { Link } from "react-router-dom";
 
 class MyTable extends React.Component {
   columns = [
-    { path: "title", label: "Title" ,content:(item) => <Link to={'/movieInfo/'+item._id}>{item.title}</Link> },
+    {
+      path: "title",
+      label: "Title",
+      content: (item) => (
+        <Link params={{ selected: item }} to={"/movieInfo/" + item._id}>
+          {item.title}
+        </Link>
+      ),
+    },
     { path: "genre.name", label: "Genre" },
     { path: "numberInStock", label: "numberInStock" },
     { path: "dailyRentalRate", label: "Rate" },
@@ -31,12 +39,19 @@ class MyTable extends React.Component {
     },
   ];
 
+  newMovie = () => {
+    this.props.history.push("/newMovie");
+  };
+
   render() {
     const { handelLike, handelDelete, onSort, pagedList, sortColumn } =
       this.props;
 
     return (
       <React.Fragment>
+        <Link to="/movies/new" className="btn btn-success m-2">
+          New Movie
+        </Link>
         <Grid
           sortColumn={sortColumn}
           columns={this.columns}
