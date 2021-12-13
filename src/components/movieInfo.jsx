@@ -1,16 +1,18 @@
 import React from "react";
-import { getMovies,saveMovie } from "../../services/fakeMovieService";
-import { getGenres } from "../../services/fakeGenreService";
+import { getMovies, saveMovie } from "../services/fakeMovieService";
+import { getGenres } from "../services/fakeGenreService";
 import Joi from "joi-browser";
 
-import Form from "../form"; 
+import Form from "./form";
 
 class MovieInfo extends Form {
   state = {
     movieList: [],
     movieSelected: {},
     data: {
-      _id: "",
+      title: "",
+      _id: "1",
+      genre: {},
       genreId: "",
       numberInStock: "",
       dailyRentalRate: "",
@@ -42,10 +44,6 @@ class MovieInfo extends Form {
       .label("امتیاز"),
   };
 
-  handleSave = () => {
-    this.props.history.push("/moveies");
-  };
-
   handleChangeGenre = ({ currentTarget: input }) => {
     // debugger
     const data = { ...this.state.data };
@@ -57,18 +55,17 @@ class MovieInfo extends Form {
   };
 
   doSubmit = () => {
-    console.log("doSubmit");
     const { data } = this.state;
     data.genre._id = data.genreId;
-    saveMovie(data)
-    this.props.history.push({ pathname: "/moveies", movie: data });
-    
+    saveMovie(data);
+    console.log("doSubmit", data);
+
+    this.props.history.push({ pathname: "/moveies" }); //, movie: data
   };
 
   findMovie = (movies, id) => {
     const find = movies.filter((m) => m._id === id);
     const itemFind = find[0];
-    // debugger;
     if (itemFind) {
       console.log("findMoviei", itemFind);
       return itemFind;
@@ -77,22 +74,34 @@ class MovieInfo extends Form {
   componentDidMount() {
     const movies = getMovies();
     const genres = getGenres();
-    this.setState({ movieList: movies, genres });
+    const { id } = this.props.match.params;
 
-    let data = this.findMovie(movies, this.props.match.params.id);
-    // debugger
-    data.genreId = data.genre._id;
-    if (data) this.setState({ data });
+    this.setState({ movieList: movies, genres });
+    if (!id) return;
+
+    let data = this.findMovie(movies, id);
+    if (data) {
+      data.genreId = data.genre._id;
+      
+      this.setState({ data });
+    }
+    else
+    console.log("c%error","background:red");
   }
 
   handleSubmit = () => {
     this.doSubmit();
   };
 
+  renderHeader = () => {
+    if (this.props.match.params.id) return <h1>Edit Movie </h1>;
+    else return <h1>New Movie </h1>;
+  };
+
   render() {
     return (
       <div>
-        <h1>Edit Movie </h1>
+        {this.renderHeader()}
         <form onSubmit={this.handleSubmit}>
           {this.renderInput("title", "Title")}
           {this.renderCombo(
