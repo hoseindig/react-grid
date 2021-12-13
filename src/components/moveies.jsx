@@ -1,5 +1,5 @@
 import React from "react";
-import { getMovies } from "../services/fakeMovieService";
+import { getMovies, deleteMovie } from "../services/fakeMovieService";
 import { getGenres } from "../services/fakeGenreService";
 
 import List from "./list";
@@ -37,7 +37,8 @@ class Movies extends React.Component {
 
   handelDelete = (id) => {
     console.log("%chandelDelete : ", "background:red", id);
-    let filterd = this.state.filterd.filter((m) => m._id !== id);
+    deleteMovie(id);
+    let filterd = getMovies(); // this.state.filterd.filter((m) => m._id !== id);
     this.setState({ filterd });
   };
   handelLike = (movie, id, val) => {
