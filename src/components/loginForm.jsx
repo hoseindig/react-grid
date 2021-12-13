@@ -30,8 +30,8 @@ class LoginForm extends Form {
       <div>
         <h1>Login</h1>
         <form onSubmit={this.handleSubmit}>
-          {this.renderInpurt("username", "UserName")}
-          {this.renderInpurt("password", "Password", "password")}
+          {this.renderInput("username", "UserName")}
+          {this.renderInput("password", "Password", "password")}
 
           <div className="form-check">
             <input
