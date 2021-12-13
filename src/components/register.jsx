@@ -20,9 +20,9 @@ class Register extends Form {
       <div>
         <h1>Register</h1>
         <form onSubmit={this.handleSubmit}>
-          {this.renderInpurt("username", "UserName")}
-          {this.renderInpurt("password", "Password", "password")}
-          {this.renderInpurt("name", "Name")}
+          {this.renderInput("username", "UserName")}
+          {this.renderInput("password", "Password", "password")}
+          {this.renderInput("name", "Name")}
 
           {this.renderButton("Register")}
         </form>

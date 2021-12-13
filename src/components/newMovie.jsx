@@ -43,8 +43,8 @@ class NewMovie extends Form {
       <div>
         <h1>New Movie </h1>
         <form onSubmit={this.handleSubmit}>
-          {this.renderInpurt("title", "Title")}
-          {/* {this.renderInpurt("genre", "Gennre")} */}
+          {this.renderInput("title", "Title")}
+          {/* {this.renderInput("genre", "Gennre")} */}
 
           <div className="form-group">
             <label>Gennre {this.state.data.genre}</label>
@@ -63,8 +63,8 @@ class NewMovie extends Form {
               })}
             </select>
           </div>
-          {this.renderInpurt("numberInStock", "number In Stuck")}
-          {this.renderInpurt("dailyRentalRate", "Rate")}
+          {this.renderInput("numberInStock", "number In Stuck")}
+          {this.renderInput("dailyRentalRate", "Rate")}
 
           {this.renderButton("Save")}
         </form>
