@@ -65,6 +65,7 @@ class List extends React.Component {
       theads,
     } = this.props;
     const { sortColumn, pageSize, search } = this.state;
+    // debugger
     let finditems = listItems.filter((i) =>
       i.title.toLowerCase().includes(search.toLowerCase())
     );
