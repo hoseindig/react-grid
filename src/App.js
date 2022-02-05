@@ -10,12 +10,16 @@ import LoginForm from "./components/loginForm";
 import Register from "./components/register";
 import NewMovie from "./components/newMovie";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import "bootstrap/dist/css/bootstrap.css";
 import "font-awesome/css/font-awesome.css";
 
 function App() {
   return (
     <React.Fragment>
+      <ToastContainer  position="bottom-right" />
       <NavBar />
       <main className="container">
         <Switch>

@@ -1,6 +1,7 @@
 import React from "react";
 import { getMovies, deleteMovie } from "../services/fakeMovieService";
 import { getGenres } from "../services/fakeGenreService";
+import { toast } from "react-toastify";
 
 import List from "./list";
 import ListGroup from "./listGroup";
@@ -36,10 +37,13 @@ class Movies extends React.Component {
   }
 
   handelDelete = (id) => {
+
     console.log("%chandelDelete : ", "background:red", id);
     deleteMovie(id);
     let filterd = getMovies(); // this.state.filterd.filter((m) => m._id !== id);
     this.setState({ filterd });
+    toast.success("Delete Success." );
+
   };
   handelLike = (movie, id, val) => {
     console.log("%chandelLike : ", "background:green", movie);
