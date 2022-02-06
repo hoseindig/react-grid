@@ -1,10 +1,10 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
-const NavBar = () => {
+const NavBar = ({ currentUser, logout }) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <Link className="navbar-brand" to="/moveies">
-        Navbar
+        {currentUser ? <b title={currentUser.name}>{currentUser.email}</b> : "Navbar"}
       </Link>
       <button
         className="navbar-toggler"
@@ -40,20 +40,33 @@ const NavBar = () => {
           >
             Rentals
           </NavLink>
-          <NavLink
+
+          {!currentUser && <React.Fragment>
+            <NavLink
+              activeClassName="selectedLink"
+              className="nav-item nav-link"
+              to="/login"
+            >
+              Login
+            </NavLink>
+            <NavLink
+              activeClassName="selectedLink"
+              className="nav-item nav-link"
+              to="/register"
+            >
+              Register
+            </NavLink>
+          </React.Fragment>}
+
+          {currentUser && <NavLink
+            onClick={logout}
             activeClassName="selectedLink"
             className="nav-item nav-link"
             to="/login"
           >
-            Login
-          </NavLink>
-          <NavLink
-            activeClassName="selectedLink"
-            className="nav-item nav-link"
-            to="/register"
-          >
-            Register
-          </NavLink>
+            Logout
+          </NavLink>}
+
         </div>
       </div>
     </nav>
