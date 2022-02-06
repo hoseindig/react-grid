@@ -1,8 +1,8 @@
 import React from "react";
 import { toast } from "react-toastify";
 
-import { getMovies, saveMovie } from "../services/fakeMovieService";
-import { getGenres } from "../services/fakeGenreService";
+import { getMovies, saveMovie } from "../services/movieService";
+import { getGenres } from "../services/genreService";
 import Joi from "joi-browser";
 
 import Form from "./form";
@@ -61,7 +61,7 @@ class MovieInfo extends Form {
     data.genre._id = data.genreId;
     saveMovie(data);
     console.log("doSubmit", data);
-    toast.success("Save Success." );
+    toast.success("Save Success.");
 
 
     this.props.history.push({ pathname: "/moveies" }); //, movie: data
@@ -75,15 +75,16 @@ class MovieInfo extends Form {
       return itemFind;
     } else this.props.history.push("/moveies");
   };
-  componentDidMount() {
-    const movies = getMovies();
-    const genres = getGenres();
+  async componentDidMount() {
+    debugger
+    const movies = await getMovies();
+    const genres = await getGenres();
     const { id } = this.props.match.params;
 
-    this.setState({ movieList: movies, genres });
+    this.setState({ movieList: movies.data, genres: genres.data });
     if (!id) return;
 
-    let data = this.findMovie(movies, id);
+    let data = this.findMovie(movies.data, id);
     if (data) {
       data.genreId = data.genre._id;
 
