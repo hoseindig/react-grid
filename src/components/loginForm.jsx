@@ -20,14 +20,15 @@ class LoginForm extends Form {
     username: Joi.string().required().label("نام کاربری"),
     password: Joi.string().required().label("کلمه عبور"),
   };
-
+  //180
   doSubmit = async () => {
     // call server
     console.log("doSubmit");
     const { username: email, password } = this.state.data
     try {
       await authService.login(email, password)
-      this.props.history.push('/')
+      // this.props.history.push('/')
+      window.location = '/'
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         const errors = { ...this.state.errors }

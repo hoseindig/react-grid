@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 
 
 import * as userService from '../services/userService'
+import auth from "../services/authService";
 
 class Register extends Form {
   state = {
@@ -24,7 +25,9 @@ class Register extends Form {
 
   doSubmit = async () => {
     try {
-      await userService.register(this.state.data)
+      const response = await userService.register(this.state.data)
+      auth.loginWithJwt(response.headers['x-auth-token'])
+      window.location = '/'
     } catch (ex) {
       debugger
       if (ex.response && ex.response.status === 400) {
